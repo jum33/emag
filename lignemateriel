@@ -1,0 +1,39 @@
+if (!isNull(row.Qte)) 
+{
+    if (row.Qte  =  0)
+    {
+        /* row.PU__HT = 0.0;
+        row.PTHT = 0.0;
+        row.PT_achat = 0.0;*/
+     }
+    else
+    {
+        // code identique au calcul PU_HT
+        if (row.PU__HT  !=  0)
+        {
+            if (row.PU_Achat  !=  0)
+            {
+                diff = (row.PU__HT  -  row.PU_Achat);
+                row.margepourcentage = (diff  /  row.PU__HT  *  100);
+            }
+        }
+        // donc vente
+        // et prix achat non null, le calcul du PU HT est obligatoire
+        // si le prix d'achat est null, la marge et le pu ht sont juste des saisies
+        // donc on ne fait rien et on calcule les champ des totaux par ligne
+        row.PT_achat = (row.PU_Achat  *  row.Qte);
+        row.PTHT = (row.PU__HT  *  row.Qte);
+    }
+}
+else
+{
+    row.Coeff = null;
+    row.PTHT = null;
+    row.PT_achat = null;
+    row.Marge_achat = null;
+    row.PU_Achat = null;
+    row.PU__HT = null;
+    row.margepourcentage = null;
+    row.Marge_achat = null;
+    row.Marge_THT = null;
+}
